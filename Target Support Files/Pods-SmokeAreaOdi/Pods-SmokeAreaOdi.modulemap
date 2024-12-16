@@ -1,0 +1,6 @@
+framework module Pods_SmokeAreaOdi {
+  umbrella header "Pods-SmokeAreaOdi-umbrella.h"
+
+  export *
+  module * { export * }
+}
