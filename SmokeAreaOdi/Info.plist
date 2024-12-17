@@ -4,6 +4,8 @@
 <dict>
 	<key>NMFClientId</key>
 	<string>blwsp39dnd</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>사용자의 위치를 받습니다.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
