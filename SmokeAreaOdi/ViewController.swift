@@ -1,21 +1,60 @@
-import CoreLocation //GPS와 관련된 위치 정보를 다룰 수 있도록 하는 Apple의 프레임워크
-import NMapsMap //네이버 지도 SDK로, 네이버 지도를 앱에 표시하거나 사용자 위치를 관리할 때 사용
+import NMapsMap
+import UIKit
+import CoreLocation
 
-        // 앱 화면에 지도를 표시할 메인 뷰 컨트롤러
-class MainViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, NMFMapViewCameraDelegate {
     
-    // 위치 관리자 초기화 / CLLocationManager 객체를 생성 / 이 객체를 통해 GPS 정보를 가져오고, 위치 권한 요청 등을 처리할 수 있음.
-    var locationManager = CLLocationManager()
-    
+    var mapView: NMFNaverMapView!
+    let locationManager = CLLocationManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //현재 뷰 컨트롤러의 크기와 동일한 크기로 초기화
+
+        // 지도 뷰 초기화
         let naverMapView = NMFNaverMapView(frame: view.frame)
-        
-        //네이버 지도 뷰를 현재 ViewController의 뷰 계층에 추가하여 화면에 보이게 함.
         view.addSubview(naverMapView)
+                
+        // 지도 설정
+        naverMapView.showLocationButton = true
+        naverMapView.showIndoorLevelPicker = true
+        naverMapView.showCompass = true
+        naverMapView.showScaleBar = true
+
+        // 위치 권한 요청
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
+        // 권한 요청
+        locationManager.requestWhenInUseAuthorization()  // 위치 권한 요청
+        locationManager.startUpdatingLocation()  // 위치 업데이트 시작
+    }
+    
+    // 위치 권한 승인 상태 처리
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            // 권한이 승인되었을 때
+            print("위치 권한 승인됨")
+        case .denied, .restricted:
+            // 권한이 거부되었거나 제한됨
+            print("위치 권한 거부됨")
+        default:
+            break
+        }
+    }
+    
+    // 현재 위치 업데이트 처리
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
         
+        // 지도에 현재 위치 표시
+        print("현재 위치: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        
+        // 추가적으로 위치를 지도에 반영할 수 있음
+    }
+    
+    // 위치 업데이트 실패 시 처리
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("위치 업데이트 실패: \(error.localizedDescription)")
     }
 }

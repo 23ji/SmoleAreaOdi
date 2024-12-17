@@ -6,6 +6,8 @@
 	<string>blwsp39dnd</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>사용자의 위치를 받습니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>앱을 사용하기 위해 위치 권한이 필요합니다.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
