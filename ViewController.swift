@@ -32,7 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, NMFMapViewCam
 
         // 역삼역의 위도와 경도 설정
         let yeoksam = NMGLatLng(lat: 37.5002, lng: 127.0368)
-
+        
         // 카메라 위치 설정
         let cameraUpdate = NMFCameraUpdate(scrollTo: yeoksam)
         cameraUpdate.animation = .easeIn  // 부드러운 애니메이션 효과
